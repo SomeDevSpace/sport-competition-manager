@@ -1,0 +1,7 @@
+{% for item in item.children %}
+    {% if item.uri is not empty %}
+        <a href="{{ item.uri }}" class="{% if item.current %}dashboard-responsive-nav-link-active{% else %}dashboard-responsive-nav-link{% endif %}">{{ item.label }}</a>
+    {% else %}
+        <span>{{ item.label }}</span>
+    {% endif %}
+{% endfor %}

@@ -1,4 +1,7 @@
 {
+    "knplabs/knp-menu-bundle": {
+        "version": "v3.5.0"
+    },
     "phpunit/phpunit": {
         "version": "9.6",
         "recipe": {
