@@ -22,7 +22,7 @@ class MenuBuilder
         $currentRoute = $currentRequest ? $currentRequest->attributes->get('_route') : null;
 
         $menu->addChild('Home', ['route' => 'app_dashboard']);
-        $menu->addChild('Competitions', ['route' => 'app_dashboard_test']);
+        $menu->addChild('Competitions', ['route' => 'user_competition']);
 
 
         foreach ($menu->getChildren() as $child) {

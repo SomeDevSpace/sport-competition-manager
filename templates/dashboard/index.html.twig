@@ -5,7 +5,12 @@
 {% block body %}
     {% include 'dashboard/_navbar.html.twig' %}
     {% include 'dashboard/_header.html.twig' %}
-    {% include 'dashboard/_flash.html.twig' %}
-    {% block content %}
-    {% endblock %}
+{#    {% include 'dashboard/_flash.html.twig' %}#}
+
+    <main>
+        <div class="mx-auto max-w-7xl sm:px-6 lg:px-8 py-12">
+            {% block content %}
+            {% endblock %}
+        </div>
+    </main>
 {% endblock %}

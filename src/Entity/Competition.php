@@ -20,7 +20,6 @@ class Competition
     #[ORM\Column(length: 200, nullable: false)]
     private string $name;
 
-
     #[ORM\Column(type: Types::DATE_MUTABLE, nullable: false)]
     private \DateTimeInterface $startDate;
 
@@ -41,6 +40,10 @@ class Competition
      */
     #[ORM\OneToMany(targetEntity: CompetitionDiscipline::class, mappedBy: 'competition')]
     private Collection $competitionDisciplines;
+
+    #[ORM\ManyToOne(inversedBy: 'competitions')]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?Sport $sport = null;
 
     public function __construct()
     {
@@ -150,6 +153,18 @@ class Competition
     public function setFormat(CompetitionFormat $format): static
     {
         $this->format = $format;
+
+        return $this;
+    }
+
+    public function getSport(): ?Sport
+    {
+        return $this->sport;
+    }
+
+    public function setSport(?Sport $sport): static
+    {
+        $this->sport = $sport;
 
         return $this;
     }

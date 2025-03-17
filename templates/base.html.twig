@@ -21,4 +21,12 @@
             {% block body %}{% endblock %}
         </div>
     </body>
+
+    <script type="module">
+        document.addEventListener('turbo:load', () => {
+            if (performance.navigation.type === performance.navigation.TYPE_RELOAD) {
+                Turbo.clearCache();
+            }
+        });
+    </script>
 </html>

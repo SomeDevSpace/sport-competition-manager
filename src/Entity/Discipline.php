@@ -7,6 +7,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use \App\Enum\DisciplineUnit;
 
 #[ORM\Entity(repositoryClass: DisciplineRepository::class)]
 class Discipline
@@ -22,14 +23,18 @@ class Discipline
     #[ORM\Column(type: Types::TEXT, nullable: true)]
     private ?string $description = null;
 
-    #[ORM\Column(length: 5)]
-    private ?string $unit = null;
-
     /**
      * @var Collection<int, CompetitionDiscipline>
      */
     #[ORM\OneToMany(targetEntity: CompetitionDiscipline::class, mappedBy: 'discipline')]
     private Collection $competitionDisciplines;
+
+    #[ORM\ManyToOne(inversedBy: 'disciplines')]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?Sport $sport = null;
+
+    #[ORM\Column(enumType: DisciplineUnit::class)]
+    private ?DisciplineUnit $unit = null;
 
     public function __construct()
     {
@@ -95,12 +100,25 @@ class Discipline
         return $this;
     }
 
-    public function getUnit(): ?string
+
+    public function getSport(): ?Sport
+    {
+        return $this->sport;
+    }
+
+    public function setSport(?Sport $sport): static
+    {
+        $this->sport = $sport;
+
+        return $this;
+    }
+
+    public function getUnit(): ?DisciplineUnit
     {
         return $this->unit;
     }
 
-    public function setUnit(string $unit): static
+    public function setUnit(DisciplineUnit $unit): static
     {
         $this->unit = $unit;
 
