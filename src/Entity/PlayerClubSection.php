@@ -37,6 +37,9 @@ class PlayerClubSection
     #[ORM\OneToMany(targetEntity: Registration::class, mappedBy: 'playerClubSection')]
     private Collection $registrations;
 
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $licenseNo = null;
+
     public function __construct()
     {
         $this->registrations = new ArrayCollection();
@@ -119,5 +122,17 @@ class PlayerClubSection
     public function setUpdatedAt(?\DateTimeImmutable $updatedAt): void
     {
         $this->updatedAt = $updatedAt;
+    }
+
+    public function getLicenseNo(): ?string
+    {
+        return $this->licenseNo;
+    }
+
+    public function setLicenseNo(?string $licenseNo): static
+    {
+        $this->licenseNo = $licenseNo;
+
+        return $this;
     }
 }

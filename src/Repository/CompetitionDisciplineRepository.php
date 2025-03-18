@@ -2,6 +2,7 @@
 
 namespace App\Repository;
 
+use App\Entity\Competition;
 use App\Entity\CompetitionDiscipline;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
@@ -14,6 +15,15 @@ class CompetitionDisciplineRepository extends ServiceEntityRepository
     public function __construct(ManagerRegistry $registry)
     {
         parent::__construct($registry, CompetitionDiscipline::class);
+    }
+
+    public function findByCompetition(Competition $competition): array
+    {
+        return $this->createQueryBuilder('d')
+            ->andWhere('d.competition = :competition')
+            ->setParameter('competition', $competition)
+            ->getQuery()
+            ->getResult();
     }
 
     //    /**

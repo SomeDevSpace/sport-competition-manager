@@ -1,11 +1,16 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Log in!{% endblock %}
+{% block title %}Register for {{ competition.name }}!{% endblock %}
 
 {% block body %}
     <div class="flex min-h-screen flex-col items-center bg-gray-100 pt-6 sm:justify-center sm:pt-0 dark:bg-gray-900">
         <div class="mt-6 w-full overflow-hidden bg-white px-6 py-4 shadow-md sm:max-w-md sm:rounded-lg dark:bg-gray-800">
-            <h1 class="text-2xl font-bold text-center text-gray-800 dark:text-gray-200">Rejestracja na zawody</h1>
+            <h1 class="text-2xl font-bold text-center text-gray-800 dark:text-gray-200 mb-6">Registration for competition {{ competition.name }}</h1>
+
+            {{ form_start(form) }}
+                {{ form_widget(form) }}
+                <button type="submit" class="primary w-full justify-center">Next</button>
+            {{ form_end(form) }}
         </div>
     </div>
 {% endblock %}

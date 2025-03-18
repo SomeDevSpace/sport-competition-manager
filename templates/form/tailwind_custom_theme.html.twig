@@ -1,0 +1,9 @@
+{% use 'tailwind_2_layout.html.twig' %}
+{% block form_label %}
+    {%- set label_attr = label_attr|merge({ class: label_attr.class|default(label_class|default('block')) }) -%}
+    {{- parent() -}}
+{% endblock %}
+{%- block form_help -%}
+    {%- set help_attr = help_attr|merge({ class: help_attr.class|default(help_class|default('mt-1')) }) -%}
+    {{- parent() -}}
+{%- endblock form_help -%}

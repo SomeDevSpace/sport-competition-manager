@@ -1,0 +1,45 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Registration summary{% endblock %}
+
+{% block body %}
+    <div class="flex min-h-screen flex-col items-center bg-gray-100 pt-6 sm:justify-center sm:pt-0 dark:bg-gray-900">
+        <div class="mt-6 w-full overflow-hidden bg-white px-6 py-4 shadow-md sm:max-w-md sm:rounded-lg dark:bg-gray-800">
+            <h1 class="text-3xl font-bold text-center text-gray-800 dark:text-gray-200">Registration summary</h1>
+
+            <h3 class="mt-6 text-2xl border-b border-gray-400 text-gray-700 dark:text-gray-300">Competition details</h3>
+            <div class="mt-4">
+                <p class="text text-gray-700 dark:text-gray-300"><strong>Name:</strong> {{ competition.name }}</p>
+                <p class="text text-gray-700 dark:text-gray-300"><strong>Location:</strong> {{ competition.location }}</p>
+                <p class="text text-gray-700 dark:text-gray-300"><strong>Start date:</strong> {{ competition.startDate|date }}</p>
+                <p class="text text-gray-700 dark:text-gray-300"><strong>End date:</strong> {{ competition.endDate|date }}</p>
+            </div>
+
+            <h3 class="mt-6 text-2xl border-b border-gray-400 text-gray-700 dark:text-gray-300">Personal details</h3>
+            <div class="mt-4">
+                <p class="text text-gray-700 dark:text-gray-300"><strong>Firstname:</strong> {{ player.firstName }}</p>
+                <p class="text text-gray-700 dark:text-gray-300"><strong>Lastname:</strong> {{ player.lastName }}</p>
+                <p class="text text-gray-700 dark:text-gray-300"><strong>Email:</strong> {{ player.email }}</p>
+                <p class="text text-gray-700 dark:text-gray-300">
+                    <strong>Birthdate:</strong> {{ player.birthDate|date('Y-m-d') }}</p>
+                <p class="text text-gray-700 dark:text-gray-300"><strong>Gender:</strong> {{ player.gender.value }}</p>
+            </div>
+
+            <h3 class="mt-6 text-2xl border-b border-gray-400 text-gray-700 dark:text-gray-300">Club</h3>
+            <div class="mt-4">
+                {% if not clubSection.id %}
+                    <strong>No club selected</strong>
+                {% endif %}
+            </div>
+
+            <h3 class="mt-6 text-2xl border-b border-gray-400 text-gray-700 dark:text-gray-300">Disciplines</h3>
+            <div class="mt-4">
+                <ul>
+                    {% for discipline in disciplines %}
+                        <li class="text-gray-300">{{ discipline.name }}</li>
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+    </div>
+{% endblock %}

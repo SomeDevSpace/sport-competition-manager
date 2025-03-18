@@ -5,6 +5,7 @@ namespace App\DataFixtures;
 use App\Entity\Competition;
 use App\Entity\Sport;
 use App\Enum\CompetitionFormat;
+use App\Enum\CompetitionStatus;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 use Doctrine\Persistence\ObjectManager;
@@ -21,7 +22,9 @@ class CompetitionFixtures extends Fixture implements DependentFixtureInterface
                 'location' => 'Krakow Shooting Range',
                 'description' => 'National shooting tournament for pistol events.',
                 'sport' => 'sport_shooting',
-                'format' => CompetitionFormat::INDIVIDUAL
+                'format' => CompetitionFormat::INDIVIDUAL,
+                'status' => CompetitionStatus::SCHEDULED,
+                'isOpenForRegistration' => true,
             ],
             [
                 'name' => 'National Cycling Championships 2025',
@@ -30,7 +33,9 @@ class CompetitionFixtures extends Fixture implements DependentFixtureInterface
                 'location' => 'Zakopane',
                 'description' => 'Cycling races in mountain biking and road disciplines.',
                 'sport' => 'sport_cycling',
-                'format' => CompetitionFormat::INDIVIDUAL
+                'format' => CompetitionFormat::INDIVIDUAL,
+                'status' => CompetitionStatus::SCHEDULED,
+                'isOpenForRegistration' => true,
             ],
             [
                 'name' => 'Independence Run 2025',
@@ -39,7 +44,9 @@ class CompetitionFixtures extends Fixture implements DependentFixtureInterface
                 'location' => 'Warsaw',
                 'description' => 'Mass run with 5K, 10K and Marathon events.',
                 'sport' => 'sport_running',
-                'format' => CompetitionFormat::INDIVIDUAL
+                'format' => CompetitionFormat::INDIVIDUAL,
+                'status' => CompetitionStatus::SCHEDULED,
+                'isOpenForRegistration' => true,
             ],
         ];
 
@@ -51,6 +58,8 @@ class CompetitionFixtures extends Fixture implements DependentFixtureInterface
             $competition->setLocation($data['location']);
             $competition->setDescription($data['description']);
             $competition->setFormat($data['format']);
+            $competition->setStatus($data['status']);
+            $competition->setIsOpenForRegistration($data['isOpenForRegistration']);
 
             // Set sport
             $competition->setSport($this->getReference($data['sport'], Sport::class));

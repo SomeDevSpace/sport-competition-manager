@@ -10,6 +10,7 @@ use Doctrine\ORM\Mapping as ORM;
 use \App\Enum\CompetitionFormat;
 use Gedmo\Mapping\Annotation\Slug;
 use Gedmo\Mapping\Annotation\Timestampable;
+use \App\Enum\CompetitionStatus;
 
 #[ORM\Entity(repositoryClass: CompetitionRepository::class)]
 class Competition
@@ -58,6 +59,12 @@ class Competition
     #[ORM\ManyToOne(inversedBy: 'competitions')]
     #[ORM\JoinColumn(nullable: false)]
     private ?Sport $sport = null;
+
+    #[ORM\Column(enumType: CompetitionStatus::class)]
+    private ?CompetitionStatus $status = CompetitionStatus::CREATED;
+
+    #[ORM\Column]
+    private ?bool $isOpenForRegistration = false;
 
     public function __construct()
     {
@@ -211,6 +218,30 @@ class Competition
     public function setUpdatedAt(?\DateTimeImmutable $updatedAt): void
     {
         $this->updatedAt = $updatedAt;
+    }
+
+    public function getStatus(): ?CompetitionStatus
+    {
+        return $this->status;
+    }
+
+    public function setStatus(CompetitionStatus $status): static
+    {
+        $this->status = $status;
+
+        return $this;
+    }
+
+    public function isOpenForRegistration(): ?bool
+    {
+        return $this->isOpenForRegistration;
+    }
+
+    public function setIsOpenForRegistration(bool $isOpenForRegistration): static
+    {
+        $this->isOpenForRegistration = $isOpenForRegistration;
+
+        return $this;
     }
 
 

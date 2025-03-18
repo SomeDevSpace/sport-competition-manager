@@ -9,6 +9,7 @@ use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use \App\Enum\Gender;
 use Gedmo\Mapping\Annotation\Timestampable;
+use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: PlayerRepository::class)]
 class Player
@@ -43,6 +44,10 @@ class Player
      */
     #[ORM\OneToMany(targetEntity: PlayerClubSection::class, mappedBy: 'player')]
     private Collection $playerClubSections;
+
+    #[ORM\Column(length: 255)]
+    #[Assert\Email()]
+    private ?string $email = null;
 
     public function __construct()
     {
@@ -150,5 +155,17 @@ class Player
     public function setUpdatedAt(?\DateTimeImmutable $updatedAt): void
     {
         $this->updatedAt = $updatedAt;
+    }
+
+    public function getEmail(): ?string
+    {
+        return $this->email;
+    }
+
+    public function setEmail(string $email): static
+    {
+        $this->email = $email;
+
+        return $this;
     }
 }
