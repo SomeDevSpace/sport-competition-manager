@@ -8,6 +8,8 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use \App\Enum\DisciplineUnit;
+use Gedmo\Mapping\Annotation\Slug;
+use Gedmo\Mapping\Annotation\Timestampable;
 
 #[ORM\Entity(repositoryClass: DisciplineRepository::class)]
 class Discipline
@@ -16,6 +18,18 @@ class Discipline
     #[ORM\GeneratedValue]
     #[ORM\Column]
     private ?int $id = null;
+
+    #[ORM\Column(unique: true)]
+    #[Slug(fields: ['name'])]
+    private ?string $slug = null;
+
+    #[ORM\Column]
+    #[Timestampable(on: 'create')]
+    private ?\DateTimeImmutable $createdAt = null;
+
+    #[ORM\Column]
+    #[Timestampable(on: 'update')]
+    private ?\DateTimeImmutable $updatedAt = null;
 
     #[ORM\Column(length: 100, nullable: false)]
     private string $name;
@@ -124,4 +138,36 @@ class Discipline
 
         return $this;
     }
+
+    public function getSlug(): ?string
+    {
+        return $this->slug;
+    }
+
+    public function setSlug(?string $slug): void
+    {
+        $this->slug = $slug;
+    }
+
+    public function getCreatedAt(): ?\DateTimeImmutable
+    {
+        return $this->createdAt;
+    }
+
+    public function setCreatedAt(?\DateTimeImmutable $createdAt): void
+    {
+        $this->createdAt = $createdAt;
+    }
+
+    public function getUpdatedAt(): ?\DateTimeImmutable
+    {
+        return $this->updatedAt;
+    }
+
+    public function setUpdatedAt(?\DateTimeImmutable $updatedAt): void
+    {
+        $this->updatedAt = $updatedAt;
+    }
+
+
 }

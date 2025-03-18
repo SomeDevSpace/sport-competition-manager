@@ -1,5 +1,8 @@
 {% extends 'dashboard/index.html.twig' %}
 
+
+{% block header %}Competitions{% endblock %}
+
 {% block content %}
     <div class="container-box">
         <div class="overflow-hidden bg-white shadow-sm sm:rounded-lg dark:bg-gray-800">
@@ -23,7 +26,8 @@
                             </td>
 
                             <td class="px-4 py-2 border border-gray-300 dark:border-gray-600">
-                                <button class="primary">Zapisy</button>
+                                <button class="primary">Details</button>
+                                <a href="{{ url('app_registration', {slug: competition.slug}) }}" class="primary rounded px-4 py-2 bg-blue-500 text-white hover:bg-blue-600">Sign-in</a>
                             </td>
                         </tr>
                     {% endfor %}

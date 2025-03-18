@@ -4,6 +4,7 @@ namespace App\Entity;
 
 use App\Repository\UserRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Gedmo\Mapping\Annotation\Timestampable;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
 
@@ -16,6 +17,14 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\GeneratedValue]
     #[ORM\Column]
     private ?int $id = null;
+
+    #[ORM\Column]
+    #[Timestampable(on: 'create')]
+    private ?\DateTimeImmutable $createdAt = null;
+
+    #[ORM\Column]
+    #[Timestampable(on: 'update')]
+    private ?\DateTimeImmutable $updatedAt = null;
 
     #[ORM\Column(length: 180)]
     private ?string $email = null;
@@ -105,5 +114,25 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     {
         // If you store any temporary, sensitive data on the user, clear it here
         // $this->plainPassword = null;
+    }
+
+    public function getCreatedAt(): ?\DateTimeImmutable
+    {
+        return $this->createdAt;
+    }
+
+    public function setCreatedAt(?\DateTimeImmutable $createdAt): void
+    {
+        $this->createdAt = $createdAt;
+    }
+
+    public function getUpdatedAt(): ?\DateTimeImmutable
+    {
+        return $this->updatedAt;
+    }
+
+    public function setUpdatedAt(?\DateTimeImmutable $updatedAt): void
+    {
+        $this->updatedAt = $updatedAt;
     }
 }

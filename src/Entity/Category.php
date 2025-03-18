@@ -8,6 +8,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use Gedmo\Mapping\Annotation\Timestampable;
 
 #[ORM\Entity(repositoryClass: CategoryRepository::class)]
 class Category
@@ -16,6 +17,14 @@ class Category
     #[ORM\GeneratedValue]
     #[ORM\Column]
     private ?int $id = null;
+
+    #[ORM\Column]
+    #[Timestampable(on: 'create')]
+    private ?\DateTimeImmutable $createdAt = null;
+
+    #[ORM\Column]
+    #[Timestampable(on: 'update')]
+    private ?\DateTimeImmutable $updatedAt = null;
 
     #[ORM\Column(length: 100)]
     private ?string $name = null;
@@ -136,5 +145,25 @@ class Category
         }
 
         return $this;
+    }
+
+    public function getCreatedAt(): ?\DateTimeImmutable
+    {
+        return $this->createdAt;
+    }
+
+    public function setCreatedAt(?\DateTimeImmutable $createdAt): void
+    {
+        $this->createdAt = $createdAt;
+    }
+
+    public function getUpdatedAt(): ?\DateTimeImmutable
+    {
+        return $this->updatedAt;
+    }
+
+    public function setUpdatedAt(?\DateTimeImmutable $updatedAt): void
+    {
+        $this->updatedAt = $updatedAt;
     }
 }

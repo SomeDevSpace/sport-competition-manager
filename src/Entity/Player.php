@@ -8,6 +8,7 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use \App\Enum\Gender;
+use Gedmo\Mapping\Annotation\Timestampable;
 
 #[ORM\Entity(repositoryClass: PlayerRepository::class)]
 class Player
@@ -16,6 +17,14 @@ class Player
     #[ORM\GeneratedValue]
     #[ORM\Column]
     private ?int $id = null;
+
+    #[ORM\Column]
+    #[Timestampable(on: 'create')]
+    private ?\DateTimeImmutable $createdAt = null;
+
+    #[ORM\Column]
+    #[Timestampable(on: 'update')]
+    private ?\DateTimeImmutable $updatedAt = null;
 
     #[ORM\Column(length: 100)]
     private ?string $firstName = null;
@@ -121,5 +130,25 @@ class Player
         }
 
         return $this;
+    }
+
+    public function getCreatedAt(): ?\DateTimeImmutable
+    {
+        return $this->createdAt;
+    }
+
+    public function setCreatedAt(?\DateTimeImmutable $createdAt): void
+    {
+        $this->createdAt = $createdAt;
+    }
+
+    public function getUpdatedAt(): ?\DateTimeImmutable
+    {
+        return $this->updatedAt;
+    }
+
+    public function setUpdatedAt(?\DateTimeImmutable $updatedAt): void
+    {
+        $this->updatedAt = $updatedAt;
     }
 }

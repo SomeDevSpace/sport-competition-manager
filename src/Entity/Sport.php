@@ -6,6 +6,7 @@ use App\Repository\SportRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Gedmo\Mapping\Annotation\Timestampable;
 
 #[ORM\Entity(repositoryClass: SportRepository::class)]
 class Sport
@@ -14,6 +15,14 @@ class Sport
     #[ORM\GeneratedValue]
     #[ORM\Column]
     private ?int $id = null;
+
+    #[ORM\Column]
+    #[Timestampable(on: 'create')]
+    private ?\DateTimeImmutable $createdAt = null;
+
+    #[ORM\Column]
+    #[Timestampable(on: 'update')]
+    private ?\DateTimeImmutable $updatedAt = null;
 
     #[ORM\Column(length: 100)]
     private ?string $name = null;
@@ -148,5 +157,25 @@ class Sport
         }
 
         return $this;
+    }
+
+    public function getCreatedAt(): ?\DateTimeImmutable
+    {
+        return $this->createdAt;
+    }
+
+    public function setCreatedAt(?\DateTimeImmutable $createdAt): void
+    {
+        $this->createdAt = $createdAt;
+    }
+
+    public function getUpdatedAt(): ?\DateTimeImmutable
+    {
+        return $this->updatedAt;
+    }
+
+    public function setUpdatedAt(?\DateTimeImmutable $updatedAt): void
+    {
+        $this->updatedAt = $updatedAt;
     }
 }
